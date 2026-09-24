@@ -9,7 +9,7 @@ public class HelloWorldController {
 
     @GetMapping("/")
     public String home() {
-        return "Hello World! Welcome to Spring Boot 2.7 with Java 17";
+        return "Hello World! Welcome to Spring Boot 2.7 with Java 17 (Upgraded on 2026-09-24)";
     }
 
     @GetMapping("/hello")
@@ -23,7 +23,8 @@ public class HelloWorldController {
             "Hello World Application",
             "1.0.0",
             "Spring Boot 2.7.17",
-            "Java 17"
+            "Java 17",
+            "2026-09-24"
         );
     }
 
@@ -32,12 +33,14 @@ public class HelloWorldController {
         private String version;
         private String springBootVersion;
         private String javaVersion;
+        private String upgradeDate;
 
-        public AppInfo(String name, String version, String springBootVersion, String javaVersion) {
+        public AppInfo(String name, String version, String springBootVersion, String javaVersion, String upgradeDate) {
             this.name = name;
             this.version = version;
             this.springBootVersion = springBootVersion;
             this.javaVersion = javaVersion;
+            this.upgradeDate = upgradeDate;
         }
 
         public String getName() {
@@ -54,6 +57,10 @@ public class HelloWorldController {
 
         public String getJavaVersion() {
             return javaVersion;
+        }
+
+        public String getUpgradeDate() {
+            return upgradeDate;
         }
     }
 }
