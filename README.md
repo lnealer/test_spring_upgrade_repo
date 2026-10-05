@@ -1,10 +1,10 @@
 # Hello World Spring Boot Application
 
-A simple Hello World web application built with Java 8 and Spring Boot 2.3.12.
+A simple Hello World web application built with Java 17 and Spring Boot 3.3.
 
 ## Prerequisites
 
-- Java 8 (JDK 1.8)
+- Java 17 (JDK 17+)
 - Maven 3.x
 
 ## Build and Run
@@ -92,29 +92,38 @@ The application initializes with the following sample data:
 │   │   │       └── example
 │   │   │           └── helloworld
 │   │   │               ├── HelloWorldApplication.java
-│   │   │               └── HelloWorldController.java
+│   │   │               ├── HelloWorldController.java
+│   │   │               ├── PersonController.java
+│   │   │               ├── PersonService.java
+│   │   │               ├── PersonRepository.java
+│   │   │               ├── Person.java
+│   │   │               └── DataInitializer.java
 │   │   └── resources
 │   │       └── application.properties
 │   └── test
 │       └── java
-│           └── com
-│               └── example
-│                   └── helloworld
+│           └── PersonServiceTest.java
 └── README.md
 ```
 
 ## Technologies Used
 
-- Java 8
-- Spring Boot 2.3.12.RELEASE
+- Java 17
+- Spring Boot 3.3.0
 - Spring Web
+- Spring Data JPA
+- H2 Database
 - Maven
+- JUnit 5
+- Mockito
 
-## AWS Bedrock
-### AWS Docs used:
-- https://docs.aws.amazon.com/bedrock/latest/userguide/agents-kb-add.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html
-- https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-build.html
+## Migration Notes
 
-Gemini Prompts: how to create aws bedrock knowledge base containing html files
-s3 bucket created: java-spring-upgrade
+This application has been successfully upgraded from Spring Boot 2.3.12 with Java 8 to Spring Boot 3.3.0 with Java 17. Key changes include:
+
+- **Spring Boot Version**: 2.3.12 → 3.3.0
+- **Java Version**: 8 → 17
+- **Jakarta EE**: All javax imports migrated to jakarta namespace
+- **Dependencies**: All transitive dependencies updated for Spring Boot 3.x compatibility
+
+All code uses Jakarta EE annotations (jakarta.persistence, jakarta.servlet, etc.) as required by Spring Boot 3.x.
