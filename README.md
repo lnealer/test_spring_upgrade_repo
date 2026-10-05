@@ -1,10 +1,10 @@
 # Hello World Spring Boot Application
 
-A simple Hello World web application built with Java 8 and Spring Boot 2.3.12.
+A simple Hello World web application built with Java 11 and Spring Boot 2.7.14.
 
 ## Prerequisites
 
-- Java 8 (JDK 1.8)
+- Java 11 (JDK 11 or higher)
 - Maven 3.x
 
 ## Build and Run
@@ -92,23 +92,45 @@ The application initializes with the following sample data:
 │   │   │       └── example
 │   │   │           └── helloworld
 │   │   │               ├── HelloWorldApplication.java
-│   │   │               └── HelloWorldController.java
+│   │   │               ├── HelloWorldController.java
+│   │   │               ├── Person.java
+│   │   │               ├── PersonController.java
+│   │   │               ├── PersonRepository.java
+│   │   │               ├── PersonService.java
+│   │   │               └── DataInitializer.java
 │   │   └── resources
 │   │       └── application.properties
 │   └── test
 │       └── java
-│           └── com
-│               └── example
-│                   └── helloworld
+│           └── PersonServiceTest.java
 └── README.md
 ```
 
 ## Technologies Used
 
-- Java 8
-- Spring Boot 2.3.12.RELEASE
+- Java 11
+- Spring Boot 2.7.14
 - Spring Web
+- Spring Data JPA
+- H2 Database
 - Maven
+- JUnit 5
+- Mockito
+
+## Upgrade Notes
+
+This application has been upgraded from Spring Boot 2.3.12 to Spring Boot 2.7.14 with the following changes:
+
+### Key Changes:
+1. **Java Version**: Updated from Java 8 to Java 11 (minimum requirement for Spring Boot 2.7)
+2. **JPA Imports**: Migrated from `javax.persistence` to `jakarta.persistence` (Jakarta EE)
+3. **Dependencies**: All Spring Boot starters automatically updated to 2.7.14 versions
+4. **Testing Framework**: JUnit 5 is now the default (already in use)
+
+### Breaking Changes Addressed:
+- Jakarta EE namespace migration for JPA annotations
+- Java 11 language features now available
+- Deprecated APIs removed or updated
 
 ## AWS Bedrock
 ### AWS Docs used:
