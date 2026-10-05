@@ -28,7 +28,7 @@ class HelloWorldControllerTest {
     void testHomeEndpoint_ReturnsWelcomeMessage() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello World! Welcome to Spring Boot 2.3 with Java 8"));
+                .andExpect(content().string("Hello World! Welcome to Spring Boot 2.7 with Java 8"));
     }
 
     @Test
@@ -161,7 +161,7 @@ class HelloWorldControllerTest {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.name").value("Hello World Application"))
                 .andExpect(jsonPath("$.version").value("1.0.0"))
-                .andExpect(jsonPath("$.springBootVersion").value("Spring Boot 2.3.12.RELEASE"))
+                .andExpect(jsonPath("$.springBootVersion").value("Spring Boot 2.7.14.RELEASE"))
                 .andExpect(jsonPath("$.javaVersion").value("Java 8"));
     }
 
