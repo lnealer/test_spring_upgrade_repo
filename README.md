@@ -1,10 +1,10 @@
 # Hello World Spring Boot Application
 
-A simple Hello World web application built with Java 8 and Spring Boot 2.3.12.
+A simple Hello World web application built with Java 17 and Spring Boot 2.7.14.
 
 ## Prerequisites
 
-- Java 8 (JDK 1.8)
+- Java 17 (JDK 17)
 - Maven 3.x
 
 ## Build and Run
@@ -92,7 +92,12 @@ The application initializes with the following sample data:
 │   │   │       └── example
 │   │   │           └── helloworld
 │   │   │               ├── HelloWorldApplication.java
-│   │   │               └── HelloWorldController.java
+│   │   │               ├── HelloWorldController.java
+│   │   │               ├── Person.java
+│   │   │               ├── PersonController.java
+│   │   │               ├── PersonRepository.java
+│   │   │               ├── PersonService.java
+│   │   │               └── DataInitializer.java
 │   │   └── resources
 │   │       └── application.properties
 │   └── test
@@ -105,10 +110,19 @@ The application initializes with the following sample data:
 
 ## Technologies Used
 
-- Java 8
-- Spring Boot 2.3.12.RELEASE
+- Java 17
+- Spring Boot 2.7.14
 - Spring Web
+- Spring Data JPA
+- H2 Database
 - Maven
+
+## Upgrade Notes
+
+### From Spring Boot 2.3 to 2.7
+- **Jakarta EE Migration**: Migrated from `javax.persistence` to `jakarta.persistence` (Spring Boot 2.7 uses Jakarta EE 9+)
+- **Java Version**: Updated from Java 8 to Java 17
+- **Dependencies**: All dependencies automatically managed by Spring Boot 2.7.14 parent POM
 
 ## AWS Bedrock
 ### AWS Docs used:
