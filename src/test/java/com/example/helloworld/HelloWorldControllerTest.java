@@ -24,7 +24,7 @@ class HelloWorldControllerTest {
     void testHomeEndpoint_ReturnsWelcomeMessage() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello World! Welcome to Spring Boot 2.3 with Java 8"));
+                .andExpect(content().string("Hello World! Welcome to Spring Boot 2.7 with Java 11"));
     }
 
     @Test
@@ -121,8 +121,8 @@ class HelloWorldControllerTest {
                 .andExpect(content().contentTypeCompatibleWith("application/json"))
                 .andExpect(jsonPath("$.name").value("Hello World Application"))
                 .andExpect(jsonPath("$.version").value("1.0.0"))
-                .andExpect(jsonPath("$.springBootVersion").value("Spring Boot 2.3.12.RELEASE"))
-                .andExpect(jsonPath("$.javaVersion").value("Java 8"));
+                .andExpect(jsonPath("$.springBootVersion").value("Spring Boot 2.7.14"))
+                .andExpect(jsonPath("$.javaVersion").value("Java 11"));
     }
 
     @Test
@@ -157,7 +157,7 @@ class HelloWorldControllerTest {
     void testInfoEndpoint_ReturnsCorrectSpringBootVersion() throws Exception {
         mockMvc.perform(get("/info"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.springBootVersion").value("Spring Boot 2.3.12.RELEASE"));
+                .andExpect(jsonPath("$.springBootVersion").value("Spring Boot 2.7.14"));
     }
 
     @Test
@@ -165,7 +165,7 @@ class HelloWorldControllerTest {
     void testInfoEndpoint_ReturnsCorrectJavaVersion() throws Exception {
         mockMvc.perform(get("/info"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.javaVersion").value("Java 8"));
+                .andExpect(jsonPath("$.javaVersion").value("Java 11"));
     }
 
     @Test
@@ -293,7 +293,7 @@ class HelloWorldControllerTest {
     void testHomeEndpoint_ReturnsExactMessage() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Hello World! Welcome to Spring Boot 2.3 with Java 8")));
+                .andExpect(content().string(equalTo("Hello World! Welcome to Spring Boot 2.7 with Java 11")));
     }
 
     @Test
@@ -305,5 +305,185 @@ class HelloWorldControllerTest {
                 .andExpect(jsonPath("$.version", instanceOf(String.class)))
                 .andExpect(jsonPath("$.springBootVersion", instanceOf(String.class)))
                 .andExpect(jsonPath("$.javaVersion", instanceOf(String.class)));
+    }
+
+    // --- Additional Edge Case Tests ---
+
+    @Test
+    @DisplayName("GET /hello with whitespace-only parameter should use default value")
+    void testHelloEndpoint_WithWhitespaceOnlyParameter_UsesDefaultValue() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "   "))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello,    !"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with unicode characters should handle correctly")
+    void testHelloEndpoint_WithUnicodeCharacters_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "李明"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, 李明!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with emoji should handle correctly")
+    void testHelloEndpoint_WithEmoji_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "User😊"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, User😊!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with plus sign should handle correctly")
+    void testHelloEndpoint_WithPlusSign_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "C++"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, C++!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with parentheses should handle correctly")
+    void testHelloEndpoint_WithParentheses_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "John (Johnny)"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, John (Johnny)!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with ampersand should handle correctly")
+    void testHelloEndpoint_WithAmpersand_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "Tom & Jerry"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, Tom & Jerry!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with equals sign should handle correctly")
+    void testHelloEndpoint_WithEqualsSign_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "x=5"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, x=5!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with question mark should handle correctly")
+    void testHelloEndpoint_WithQuestionMark_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "Who?"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, Who?!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with hash should handle correctly")
+    void testHelloEndpoint_WithHash_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "#User"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, #User!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with percent sign should handle correctly")
+    void testHelloEndpoint_WithPercentSign_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "100%"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, 100%!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with forward slash should handle correctly")
+    void testHelloEndpoint_WithForwardSlash_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "path/to/user"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, path/to/user!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with backslash should handle correctly")
+    void testHelloEndpoint_WithBackslash_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "path\\to\\user"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, path\\to\\user!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with tab character should handle correctly")
+    void testHelloEndpoint_WithTabCharacter_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "User\tName"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Hello,")))
+                .andExpect(content().string(containsString("!")));
+    }
+
+    @Test
+    @DisplayName("GET /hello with newline character should handle correctly")
+    void testHelloEndpoint_WithNewlineCharacter_HandlesCorrectly() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "User\nName"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Hello,")))
+                .andExpect(content().string(containsString("!")));
+    }
+
+    @Test
+    @DisplayName("GET /info response should contain Spring Boot 2.7 version")
+    void testInfoEndpoint_ContainsSpringBoot27Version() throws Exception {
+        mockMvc.perform(get("/info"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.springBootVersion").value(containsString("2.7")));
+    }
+
+    @Test
+    @DisplayName("GET /info response should contain Java 11 version")
+    void testInfoEndpoint_ContainsJava11Version() throws Exception {
+        mockMvc.perform(get("/info"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.javaVersion").value(containsString("11")));
+    }
+
+    @Test
+    @DisplayName("GET / response should contain Spring Boot 2.7 reference")
+    void testHomeEndpoint_ContainsSpringBoot27Reference() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("2.7")));
+    }
+
+    @Test
+    @DisplayName("GET / response should contain Java 11 reference")
+    void testHomeEndpoint_ContainsJava11Reference() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("11")));
+    }
+
+    @Test
+    @DisplayName("GET /hello with single character name should return greeting")
+    void testHelloEndpoint_WithSingleCharacterName_ReturnsGreeting() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "A"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, A!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with mixed case name should preserve case")
+    void testHelloEndpoint_WithMixedCaseName_PreservesCase() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "JoHn DoE"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, JoHn DoE!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with all uppercase name should preserve case")
+    void testHelloEndpoint_WithAllUppercaseName_PreservesCase() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "ALICE"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, ALICE!"));
+    }
+
+    @Test
+    @DisplayName("GET /hello with all lowercase name should preserve case")
+    void testHelloEndpoint_WithAllLowercaseName_PreservesCase() throws Exception {
+        mockMvc.perform(get("/hello").param("name", "alice"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, alice!"));
     }
 }
