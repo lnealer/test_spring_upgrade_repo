@@ -11,12 +11,12 @@
     <packaging>jar</packaging>
 
     <name>Hello World Spring Boot Application</name>
-    <description>Simple Hello World web application using Spring Boot 2.7 and Java 17</description>
+    <description>Simple Hello World web application using Spring Boot 3.3 and Java 17</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.14</version>
+        <version>3.3.0</version>
         <relativePath/>
     </parent>
 
