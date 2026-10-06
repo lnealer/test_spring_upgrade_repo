@@ -9,7 +9,7 @@ public class HelloWorldController {
 
     @GetMapping("/")
     public String home() {
-        return "Hello World! Welcome to Spring Boot 2.7 with Java 17";
+        return "Hello World! Welcome to Spring Boot 3.0 with Java 17";
     }
 
     @GetMapping("/hello")
@@ -22,7 +22,7 @@ public class HelloWorldController {
         return new AppInfo(
             "Hello World Application",
             "1.0.0",
-            "Spring Boot 2.7.18.RELEASE",
+            "Spring Boot 3.0.0.RELEASE",
             "Java 17"
         );
     }

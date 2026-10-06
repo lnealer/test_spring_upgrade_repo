@@ -24,7 +24,7 @@ class HelloWorldControllerTest {
     void testHome_ReturnsWelcomeMessage() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello World! Welcome to Spring Boot 2.7 with Java 17"));
+                .andExpect(content().string("Hello World! Welcome to Spring Boot 3.0 with Java 17"));
     }
 
     @Test
@@ -119,7 +119,7 @@ class HelloWorldControllerTest {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.name").value("Hello World Application"))
                 .andExpect(jsonPath("$.version").value("1.0.0"))
-                .andExpect(jsonPath("$.springBootVersion").value("Spring Boot 2.7.18.RELEASE"))
+                .andExpect(jsonPath("$.springBootVersion").value("Spring Boot 3.0.0.RELEASE"))
                 .andExpect(jsonPath("$.javaVersion").value("Java 17"));
     }
 
@@ -162,10 +162,10 @@ class HelloWorldControllerTest {
     }
 
     @Test
-    @DisplayName("GET /info should confirm Spring Boot 2.7.18")
+    @DisplayName("GET /info should confirm Spring Boot 3.0.0")
     void testInfo_ConfirmsSpringBootVersion() throws Exception {
         mockMvc.perform(get("/info"))
-                .andExpect(jsonPath("$.springBootVersion").value(containsString("2.7.18")));
+                .andExpect(jsonPath("$.springBootVersion").value(containsString("3.0.0")));
     }
 
     @Test
